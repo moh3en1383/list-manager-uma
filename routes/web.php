@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CircularQueueController;
+use App\Http\Controllers\SimpleQueueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListController;
 
@@ -38,3 +40,21 @@ Route::post('/list/reverse', [ListController::class, 'reverse'])->name('list.rev
 
 // جستجو برای یک مقدار در لیست
 Route::post('/find_by_value',[ListController::class,'searchByValue'])->name('list.search');
+
+
+Route::post('/queue/enqueue', [CircularQueueController::class, 'enqueue'])->name('queue.enqueue');
+Route::post('/queue/dequeue', [CircularQueueController::class, 'dequeue'])->name('queue.dequeue');
+Route::post('/queue/peek', [CircularQueueController::class, 'peek'])->name('queue.peek');
+Route::post('/queue/reverse', [CircularQueueController::class, 'reverse'])->name('queue.reverse');
+Route::get('/queue/display', [CircularQueueController::class, 'display'])->name('queue.display');
+
+
+Route::prefix('simple/queue')->group(function () {
+    Route::get('/display', [SimpleQueueController::class, 'display'])->name('simplequeue.display');
+    Route::post('/enqueue', [SimpleQueueController::class, 'enqueue'])->name('simplequeue.enqueue');
+    Route::post('/dequeue', [SimpleQueueController::class, 'dequeue'])->name('simplequeue.dequeue');
+    Route::post('/peek', [SimpleQueueController::class, 'peek'])->name('simplequeue.peek');
+    Route::post('/reverse', [SimpleQueueController::class, 'reverse'])->name('simplequeue.reverse');
+    Route::post('/simple/queue/reset', [SimpleQueueController::class, 'resetQueue'])->name('simplequeue.reset');
+
+});
