@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CircularQueueController;
 use App\Http\Controllers\SimpleQueueController;
+use App\Http\Controllers\StackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListController;
 
@@ -58,3 +59,23 @@ Route::prefix('simple/queue')->group(function () {
     Route::post('/simple/queue/reset', [SimpleQueueController::class, 'resetQueue'])->name('simplequeue.reset');
 
 });
+
+// نمایش استک
+Route::get('/stack', [StackController::class, 'displayStack'])->name('stack.display');
+
+// نمایش صف
+Route::get('/queue', [StackController::class, 'displayQueue'])->name('queue.stack.display');
+
+// افزودن مقدار به استک (Push)
+Route::post('/stack/push', [StackController::class, 'push'])->name('stack.push');
+
+// حذف مقدار از استک (Pop)
+Route::post('/stack/pop', [StackController::class, 'pop'])->name('stack.pop');
+
+// افزودن مقدار به صف (Enqueue)
+Route::post('/queue/enqueue', [StackController::class, 'enqueue'])->name('queue.stack.enqueue');
+
+// حذف مقدار از صف (Dequeue)
+Route::post('/queue/dequeue', [StackController::class, 'dequeue'])->name('queue.stack.dequeue');
+
+Route::post('/stack/peek', [StackController::class, 'peek'])->name('stack.peek');
